@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>CivIQ Quiz</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" />
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    body {
+      transition: background-color 0.3s ease;
+    }
+    .dark-mode {
+      background-color: #1c1c1c;
+      color: #e0e0e0;
+    }
+    .dark-mode .form-check-label {
+      color: #ddd;
+    }
+    .animated-heading {
+    opacity: 0;
+    transform: translateY(30px);
+    animation: slideIn 0.8s ease-out forwards;
+  }
+
+  @keyframes slideIn {
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  </style>
+</head>
+<body>
+  <nav class="navbar navbar-expand-lg navbar-dark px-3" style="background-color: #6a1b9a;">
+    <a class="navbar-brand" href="index.html">&#127760;CivIQ</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse justify-content-between" id="navbarNav">
+      <ul class="navbar-nav">
+        <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+        <li class="nav-item"><a class="nav-link" href="learn.html">Learn</a></li>
+        <li class="nav-item"><a class="nav-link" href="quiz.html">Quiz</a></li>
+        <li class="nav-item"><a class="nav-link" href="progress.html">Progress</a></li>
+        <li class="nav-item"><a class="nav-link" href="dashboard.html">Dashboard</a></li>
+        <li class="nav-item"><a class="nav-link" href="myth.html">Myths</a></li>
+        <li class="nav-item"><a class="nav-link" href="faq.html">FAQ</a></li>
+        <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
+        <li class="nav-item"><a class="nav-link" href="resources.html">Resources</a></li>
+        <li class="nav-item"><a class="nav-link active" href="about.html">About</a></li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="civicDropdown" role="button" data-bs-toggle="dropdown">Civic Topics</a>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="rights.html">Fundamental Rights</a></li>
+            <li><a class="dropdown-item" href="elections.html">Election Process</a></li>
+            <li><a class="dropdown-item" href="laws.html">Laws</a></li>
+            <li><a class="dropdown-item" href="digital.html">Digital Rights</a></li>
+            <li><a class="dropdown-item" href="environment.html">Environment</a></li>
+            <li><a class="dropdown-item" href="result.html">Quiz Results</a></li>
+          </ul>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="profileDropdown" role="button" data-bs-toggle="dropdown">Account</a>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="profile.html">Profile</a></li>
+            <li><a class="dropdown-item" href="login.html">Login</a></li>
+            <li><a class="dropdown-item" href="logout.html">Logout</a></li>
+          </ul>
+        </li>
+      </ul>
+      <div class="d-flex align-items-center gap-2">
+        <button class="btn btn-outline-light" onclick="toggleTheme()">&#127767;</button>
+        <img src="https://via.placeholder.com/40" alt="Profile" class="rounded-circle" id="navbarPhoto"
+             style="width: 40px; height: 40px; cursor: pointer;" onclick="location.href='profile.html'" />
+      </div>
+    </div>
+  </nav>
+
+  <section class="container my-5">
+    <h2 class="text-center mb-4 animated-heading">&#129504; Civics Quiz</h2>
+    <form id="quizForm">
+     
+      <div class="mb-4">
+        <h5>1. What is the minimum age to vote in India?</h5>
+        <div class="form-check"><input type="radio" name="q1" value="18" class="form-check-input" id="q1a"><label for="q1a" class="form-check-label">18</label></div>
+        <div class="form-check"><input type="radio" name="q1" value="21" class="form-check-input" id="q1b"><label for="q1b" class="form-check-label">21</label></div>
+      </div>
+
+     
+      <div class="mb-4">
+        <h5>2. Which Article gives Right to Equality in India?</h5>
+        <div class="form-check"><input type="radio" name="q2" value="14" class="form-check-input" id="q2a"><label for="q2a" class="form-check-label">Article 19</label></div>
+        <div class="form-check"><input type="radio" name="q2" value="19" class="form-check-input" id="q2b"><label for="q2b" class="form-check-label">Article 14</label></div>
+      </div>
+
+  
+      <div class="mb-4">
+        <h5>3. Who can file a Public Interest Litigation (PIL)?</h5>
+        <div class="form-check"><input type="radio" name="q3" value="Any Citizen" class="form-check-input" id="q3a"><label for="q3a" class="form-check-label">Any Citizen</label></div>
+        <div class="form-check"><input type="radio" name="q3" value="Only Lawyer" class="form-check-input" id="q3b"><label for="q3b" class="form-check-label">Only Lawyer</label></div>
+      </div>
+
+      
+      <div class="mb-4">
+        <h5>4. What does the green color in the national flag represent?</h5>
+        <div class="form-check"><input type="radio" name="q4" value="Faith and Fertility" class="form-check-input" id="q4a"><label for="q4a" class="form-check-label">Courage and Sacrifice</label></div>
+        <div class="form-check"><input type="radio" name="q4" value="Courage and Sacrifice" class="form-check-input" id="q4b"><label for="q4b" class="form-check-label">Faith and Fertility</label></div>
+      </div>
+
+    
+      <div class="mb-4">
+        <h5>5. What is the meaning of Article 21?</h5>
+        <div class="form-check"><input type="radio" name="q5" value="Right to Life and Personal Liberty" class="form-check-input" id="q5a"><label for="q5a" class="form-check-label">Right to Life and Personal Liberty</label></div>
+        <div class="form-check"><input type="radio" name="q5" value="Right to Vote" class="form-check-input" id="q5b"><label for="q5b" class="form-check-label">Right to Vote</label></div>
+      </div>
+
+     
+      <div class="mb-4">
+        <h5>6. Who appoints the Chief Justice of India?</h5>
+        <div class="form-check"><input type="radio" name="q6" value="President" class="form-check-input" id="q6a"><label for="q6a" class="form-check-label">President</label></div>
+        <div class="form-check"><input type="radio" name="q6" value="Prime Minister" class="form-check-input" id="q6b"><label for="q6b" class="form-check-label">Prime Minister</label></div>
+      </div>
+
+    
+      <div class="mb-4">
+        <h5>7. What does Lok Sabha represent?</h5>
+        <div class="form-check"><input type="radio" name="q7" value="Lower House of Parliament" class="form-check-input" id="q7a"><label for="q7a" class="form-check-label">Upper House of Parliament</label></div>
+        <div class="form-check"><input type="radio" name="q7" value="Upper House of Parliament" class="form-check-input" id="q7b"><label for="q7b" class="form-check-label">Lower House of Parliament</label></div>
+      </div>
+
+      <button type="submit" class="btn btn-success">Submit Quiz</button>
+    </form>
+  </section>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    function toggleTheme() {
+      document.body.classList.toggle("dark-mode");
+    }
+
+    const savedPhoto = localStorage.getItem("civIQ_photo");
+    if (savedPhoto) {
+      document.getElementById("navbarPhoto").src = savedPhoto;
+    }
+
+    const correctAnswers = {
+      q1: "18",
+      q2: "14",
+      q3: "Any Citizen",
+      q4: "Faith and Fertility",
+      q5: "Right to Life and Personal Liberty",
+      q6: "President",
+      q7: "Lower House of Parliament"
+    };
+
+    document.getElementById("quizForm").addEventListener("submit", function (e) {
+      e.preventDefault();
+      let score = 0;
+      for (let key in correctAnswers) {
+        const selected = document.querySelector(`input[name="${key}"]:checked`);
+        if (selected && selected.value === correctAnswers[key]) {
+          score++;
+        }
+      }
+      localStorage.setItem("civIQScore", score);
+      window.location.href = "result.html";
+    });
+  </script>
+</body>
+</html>

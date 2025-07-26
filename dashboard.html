@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Dashboard - CivIQ</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    body {
+      background-color: var(--bs-body-bg);
+      transition: background-color 0.3s ease;
+    }
+    .dark-mode {
+      background-color: #1c1c1c;
+      color: #e0e0e0;
+    }
+    .dark-mode .card {
+      background-color: #2c2c2c;
+      color: #e0e0e0;
+    }
+    .card {
+      border-radius: 1rem;
+      box-shadow: 0 0 10px rgba(0,0,0,0.05);
+      background-color: #fff;
+      transition: background-color 0.3s ease;
+    }
+    canvas {
+      max-height: 300px;
+    }
+    .animated-heading {
+    opacity: 0;
+    transform: translateY(30px);
+    animation: slideIn 0.8s ease-out forwards;
+  }
+
+  @keyframes slideIn {
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  </style>
+</head>
+<body>
+  
+  <nav class="navbar navbar-expand-lg navbar-dark px-3" style="background-color: #6a1b9a;">
+    <a class="navbar-brand" href="index.html">&#127760;CivIQ</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse justify-content-between" id="navbarNav">
+      <ul class="navbar-nav">
+        <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+        <li class="nav-item"><a class="nav-link" href="learn.html">Learn</a></li>
+        <li class="nav-item"><a class="nav-link" href="quiz.html">Quiz</a></li>
+        <li class="nav-item"><a class="nav-link" href="progress.html">Progress</a></li>
+        <li class="nav-item"><a class="nav-link" href="dashboard.html">Dashboard</a></li>
+        <li class="nav-item"><a class="nav-link" href="myth.html">Myths</a></li>
+        <li class="nav-item"><a class="nav-link" href="faq.html">FAQ</a></li>
+        <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
+        <li class="nav-item"><a class="nav-link" href="resources.html">Resources</a></li>
+        <li class="nav-item"><a class="nav-link active" href="about.html">About</a></li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="civicDropdown" role="button" data-bs-toggle="dropdown">Civic Topics</a>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="rights.html">Fundamental Rights</a></li>
+            <li><a class="dropdown-item" href="elections.html">Election Process</a></li>
+            <li><a class="dropdown-item" href="laws.html">Laws</a></li>
+            <li><a class="dropdown-item" href="digital.html">Digital Rights</a></li>
+            <li><a class="dropdown-item" href="environment.html">Environment</a></li>
+            <li><a class="dropdown-item" href="result.html">Quiz Results</a></li>
+          </ul>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="profileDropdown" role="button" data-bs-toggle="dropdown">Account</a>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="profile.html">Profile</a></li>
+            <li><a class="dropdown-item" href="login.html">Login</a></li>
+            <li><a class="dropdown-item" href="logout.html">Logout</a></li>
+          </ul>
+        </li>
+      </ul>
+      <div class="d-flex align-items-center gap-2">
+        <button class="btn btn-outline-light" onclick="toggleTheme()">&#127767;</button>
+        <img src="https://via.placeholder.com/40" alt="Profile" class="rounded-circle" id="navbarPhoto"
+             style="width: 40px; height: 40px; cursor: pointer;" onclick="location.href='profile.html'" />
+      </div>
+    </div>
+  </nav>
+
+  <div class="container my-5">
+    <h2 class="text-center animated-heading mb-4">&#128202; CivIQ Dashboard</h2>
+
+    <div class="row g-4 text-center">
+      <div class="col-md-3">
+        <div class="card p-3">
+          <h5>Total Quizzes</h5>
+          <p id="totalQuizzes" class="fs-4 fw-bold">0</p>
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="card p-3">
+          <h5>Last Score</h5>
+          <p id="lastScore" class="fs-4 fw-bold">0</p>
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="card p-3">
+          <h5>Best Score</h5>
+          <p id="bestScore" class="fs-4 fw-bold">0</p>
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="card p-3">
+          <h5>Average Score</h5>
+          <p id="avgScore" class="fs-4 fw-bold">0</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="my-5">
+      <h4 class="text-center">&#128200; Quiz History</h4>
+      <canvas id="scoreChart"></canvas>
+    </div>
+  </div>
+
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    function toggleTheme() {
+      document.body.classList.toggle("dark-mode");
+    }
+
+    const score = parseInt(localStorage.getItem("civIQScore")) || 0;
+    let scoreHistory = JSON.parse(localStorage.getItem("civIQAllScores")) || [];
+
+    
+    if (!scoreHistory.length || scoreHistory.at(-1) !== score) {
+      scoreHistory.push(score);
+      localStorage.setItem("civIQAllScores", JSON.stringify(scoreHistory));
+    }
+
+
+    document.getElementById("totalQuizzes").textContent = scoreHistory.length;
+    document.getElementById("lastScore").textContent = scoreHistory.at(-1) || 0;
+    document.getElementById("bestScore").textContent = scoreHistory.length ? Math.max(...scoreHistory) : 0;
+    document.getElementById("avgScore").textContent = scoreHistory.length
+      ? Math.round(scoreHistory.reduce((a, b) => a + b, 0) / scoreHistory.length)
+      : 0;
+
+ 
+    const savedPhoto = localStorage.getItem("civIQ_photo");
+    if (savedPhoto) {
+      document.getElementById("navbarPhoto").src = savedPhoto;
+    }
+
+
+    const ctx = document.getElementById("scoreChart").getContext("2d");
+    new Chart(ctx, {
+      type: "line",
+      data: {
+        labels: scoreHistory.map((_, i) => `Quiz ${i + 1}`),
+        datasets: [{
+          label: "Score",
+          data: scoreHistory,
+          fill: false,
+          borderColor: "#0d6efd",
+          backgroundColor: "#0d6efd",
+          tension: 0.3
+        }]
+      },
+      options: {
+        responsive: true,
+        scales: {
+          y: {
+            beginAtZero: true,
+            max: 4
+          }
+        }
+      }
+    });
+  </script>
+</body>
+</html>

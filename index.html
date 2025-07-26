@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>CivIQ - Civic Education Platform</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="style.css">
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      transition: background-color 0.3s ease;
+    }
+    .dark-mode {
+      background-color: #1c1c1c;
+      color: #e0e0e0;
+    }
+    .hero {
+      min-height: 90vh;
+      background-image: url('bg.jpg');
+      background-size: cover;
+      background-position: center;
+    }
+
+    .hero {
+  min-height: 90vh;
+  background: linear-gradient(to bottom right, #6a1b9a, #311b92);
+  color: #fff;
+}
+
+    .dark-mode .hero {
+      background-image: url('bg-dark.jpg');
+    }
+    .country-select {
+      animation: bounce 1.5s infinite;
+      text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.8);
+    }
+    @keyframes bounce {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-5px); }
+    }
+
+    .animated-heading {
+    opacity: 0;
+    transform: translateY(30px);
+    animation: slideIn 0.8s ease-out forwards;
+  }
+
+  @keyframes slideIn {
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  </style>
+</head>
+<body>
+  
+  <nav class="navbar navbar-expand-lg navbar-dark px-3" style="background-color: #6a1b9a;">
+    <a class="navbar-brand" href="index.html">🌐CivIQ</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse justify-content-between" id="navbarNav">
+      <ul class="navbar-nav">
+        <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+        <li class="nav-item"><a class="nav-link" href="learn.html">Learn</a></li>
+        <li class="nav-item"><a class="nav-link" href="quiz.html">Quiz</a></li>
+        <li class="nav-item"><a class="nav-link" href="progress.html">Progress</a></li>
+        <li class="nav-item"><a class="nav-link" href="dashboard.html">Dashboard</a></li>
+        <li class="nav-item"><a class="nav-link" href="myth.html">Myths</a></li>
+        <li class="nav-item"><a class="nav-link" href="faq.html">FAQ</a></li>
+        <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
+        <li class="nav-item"><a class="nav-link" href="resources.html">Resources</a></li>
+        <li class="nav-item"><a class="nav-link active" href="about.html">About</a></li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="civicDropdown" role="button" data-bs-toggle="dropdown">Civic Topics</a>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="rights.html">Fundamental Rights</a></li>
+            <li><a class="dropdown-item" href="election.html">Election Process</a></li>
+            <li><a class="dropdown-item" href="laws.html">Laws</a></li>
+            <li><a class="dropdown-item" href="digital.html">Digital Rights</a></li>
+            <li><a class="dropdown-item" href="environment.html">Environment</a></li>
+            <li><a class="dropdown-item" href="result.html">Quiz Results</a></li>
+          </ul>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="profileDropdown" role="button" data-bs-toggle="dropdown">Account</a>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="profile.html">Profile</a></li>
+            <li><a class="dropdown-item" href="login.html">Login</a></li>
+            <li><a class="dropdown-item" href="logout.html">Logout</a></li>
+          </ul>
+        </li>
+      </ul>
+      <div class="d-flex align-items-center gap-2">
+        <button class="btn btn-outline-light" onclick="toggleTheme()">&#127767;</button>
+        <img src="https://via.placeholder.com/40" alt="Profile" class="rounded-circle" id="navbarPhoto"
+             style="width: 40px; height: 40px; cursor: pointer;" onclick="location.href='profile.html'" />
+      </div>
+    </div>
+  </nav>
+
+
+  <div class="hero text-white text-center d-flex flex-column justify-content-center overlay align-items-center animated-heading px-3">
+    <h1 class="display-4 fw-bold country-select">Welcome to CivIQ</h1>
+    <p class="lead mb-4 country-select">Your gateway to understanding your rights, responsibilities, and laws.</p>
+
+    <div class="w-50 ">
+      <select class="form-select form-select-lg text-center mb-3 country-select" id="countrySelect">
+        <option selected disabled>Select Your Country</option>
+        <option value="india">🇮🇳 India</option>
+        <option value="usa">🇺🇸 United States</option>
+      </select>
+    </div>
+
+    <a href="learn.html" class="btn btn-lg country-select btn-teal px-5 ">Start Learning &#128640;</a>
+  </div>
+
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    function toggleTheme() {
+      document.body.classList.toggle("dark-mode");
+    }
+    const savedPhoto = localStorage.getItem("civIQ_photo");
+    if (savedPhoto) {
+      document.getElementById("navbarPhoto").src = savedPhoto;
+    }
+
+    document.getElementById("countrySelect").addEventListener("change", function () {
+      const country = this.value;
+      alert(` CivIQ will soon offer regional features for ${country.toUpperCase()}!`);
+    });
+  </script>
+</body>
+</html>

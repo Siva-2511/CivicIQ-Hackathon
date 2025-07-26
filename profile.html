@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>User Profile - CivIQ</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    body {
+      transition: background-color 0.3s ease;
+    }
+    .dark-mode {
+      background-color: #121212;
+      color: #ffffff;
+    }
+    .profile-card {
+      max-width: 600px;
+      margin: auto;
+      margin-top: 50px;
+      background-color: #f8f9fa;
+      border-radius: 15px;
+      padding: 25px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.05);
+    }
+    .dark-mode .profile-card {
+      background-color: #1f1f1f;
+      color: #ccc;
+    }
+    .profile-pic {
+      width: 120px;
+      height: 120px;
+      object-fit: cover;
+      border-radius: 50%;
+      margin-bottom: 20px;
+    }
+    .animated-heading {
+    opacity: 0;
+    transform: translateY(30px);
+    animation: slideIn 0.8s ease-out forwards;
+  }
+
+  @keyframes slideIn {
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  </style>
+</head>
+<body>
+
+
+  <nav class="navbar navbar-expand-lg navbar-dark px-3" style="background-color: #6a1b9a;">
+    <a class="navbar-brand" href="index.html">&#127760;CivIQ</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse justify-content-between" id="navbarNav">
+      <ul class="navbar-nav">
+        <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+        <li class="nav-item"><a class="nav-link" href="learn.html">Learn</a></li>
+        <li class="nav-item"><a class="nav-link" href="quiz.html">Quiz</a></li>
+        <li class="nav-item"><a class="nav-link" href="progress.html">Progress</a></li>
+        <li class="nav-item"><a class="nav-link" href="dashboard.html">Dashboard</a></li>
+        <li class="nav-item"><a class="nav-link" href="myth.html">Myths</a></li>
+        <li class="nav-item"><a class="nav-link" href="faq.html">FAQ</a></li>
+        <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
+        <li class="nav-item"><a class="nav-link" href="resources.html">Resources</a></li>
+        <li class="nav-item"><a class="nav-link active" href="about.html">About</a></li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="civicDropdown" role="button" data-bs-toggle="dropdown">Civic Topics</a>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="rights.html">Fundamental Rights</a></li>
+            <li><a class="dropdown-item" href="elections.html">Election Process</a></li>
+            <li><a class="dropdown-item" href="laws.html">Laws</a></li>
+            <li><a class="dropdown-item" href="digital.html">Digital Rights</a></li>
+            <li><a class="dropdown-item" href="environment.html">Environment</a></li>
+            <li><a class="dropdown-item" href="result.html">Quiz Results</a></li>
+          </ul>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="profileDropdown" role="button" data-bs-toggle="dropdown">Account</a>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="profile.html">Profile</a></li>
+            <li><a class="dropdown-item" href="login.html">Login</a></li>
+            <li><a class="dropdown-item" href="logout.html">Logout</a></li>
+          </ul>
+        </li>
+      </ul>
+      <div class="d-flex align-items-center gap-2">
+        <button class="btn btn-outline-light" onclick="toggleTheme()">&#127767;</button>
+        <img src="https://via.placeholder.com/40" alt="Profile" class="rounded-circle" id="navbarPhoto"
+             style="width: 40px; height: 40px; cursor: pointer;" onclick="location.href='profile.html'" />
+      </div>
+    </div>
+  </nav>
+
+  <div class="container">
+    <div class="profile-card">
+      <div class="text-center">
+        <img src="https://via.placeholder.com/120" alt="Profile Picture" class="profile-pic" id="userPhoto">
+        <input type="file" accept="image/*" class="form-control mt-2" onchange="previewPhoto(event)">
+        <h3 class="mt-3 animated-heading" id="userName">Your Name</h3>
+        <p class="text-muted animated-heading">CivIQ Learner</p>
+      </div>
+      <hr>
+      <form onsubmit="return saveProfile(event)">
+        <div class="mb-3">
+          <label class="form-label ">Full Name</label>
+          <input type="text" id="nameInput" class="form-control" readonly>
+        </div>
+        <div class="mb-3">
+          <label class="form-label ">Email address</label>
+          <input type="email" id="emailInput" class="form-control" readonly>
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Country</label>
+          <input type="text" class="form-control" value="India" readonly>
+        </div>
+        <div class="mb-3">
+          <label class="form-label ">Joined</label>
+          <input type="date" class="form-control" value="2025-07-01" readonly>
+        </div>
+        <div class="d-flex gap-2">
+          <button type="button" class="btn btn-warning w-100" onclick="toggleEdit()">Edit Profile</button>
+          <button type="button" class="btn btn-secondary w-100" id="cancelBtn " style="display:none;" onclick="cancelEdit()">Cancel</button>
+        </div>
+        <button type="submit" id="saveBtn" class="btn btn-success w-100 mt-2 " style="display:none;">Save Changes</button>
+      </form>
+    </div>
+  </div>
+
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    function toggleTheme() {
+      document.body.classList.toggle('dark-mode');
+      localStorage.setItem("theme", document.body.classList.contains("dark-mode") ? "dark" : "light");
+    }
+
+    function previewPhoto(event) {
+      const reader = new FileReader();
+      reader.onload = function () {
+        const photoData = reader.result;
+        document.getElementById('userPhoto').src = photoData;
+        document.getElementById('navbarPhoto').src = photoData;
+        localStorage.setItem("civIQ_photo", photoData);
+      };
+      reader.readAsDataURL(event.target.files[0]);
+    }
+
+    function toggleEdit() {
+      document.getElementById('nameInput').readOnly = false;
+      document.getElementById('emailInput').readOnly = false;
+      document.getElementById('saveBtn').style.display = 'block';
+      document.getElementById('cancelBtn').style.display = 'block';
+    }
+
+    function cancelEdit() {
+      document.getElementById('nameInput').readOnly = true;
+      document.getElementById('emailInput').readOnly = true;
+      document.getElementById('saveBtn').style.display = 'none';
+      document.getElementById('cancelBtn').style.display = 'none';
+
+      // Restore from storage
+      document.getElementById('nameInput').value = localStorage.getItem("civIQ_name") || "Your Name";
+      document.getElementById('emailInput').value = localStorage.getItem("civIQ_email") || "your@example.com";
+    }
+
+    function saveProfile(e) {
+      e.preventDefault();
+      const name = document.getElementById('nameInput').value;
+      const email = document.getElementById('emailInput').value;
+
+      if (!email.includes('@')) {
+        alert('Please enter a valid email!');
+        return false;
+      }
+
+      document.getElementById('userName').textContent = name;
+      localStorage.setItem("civIQ_name", name);
+      localStorage.setItem("civIQ_email", email);
+
+      alert('Profile updated!');
+      cancelEdit();
+      return true;
+    }
+
+    window.onload = function () {
+   
+      if (localStorage.getItem("theme") === "dark") {
+        document.body.classList.add("dark-mode");
+      }
+
+
+      const savedPhoto = localStorage.getItem("civIQ_photo");
+      if (savedPhoto) {
+        document.getElementById("userPhoto").src = savedPhoto;
+        document.getElementById("navbarPhoto").src = savedPhoto;
+      }
+
+
+      const savedName = localStorage.getItem("civIQ_name");
+      const savedEmail = localStorage.getItem("civIQ_email");
+      if (savedName) {
+        document.getElementById("nameInput").value = savedName;
+        document.getElementById("userName").textContent = savedName;
+      }
+      if (savedEmail) {
+        document.getElementById("emailInput").value = savedEmail;
+      }
+    };
+  </script>
+</body>
+</html>
