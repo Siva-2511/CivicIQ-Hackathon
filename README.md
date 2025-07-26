@@ -55,4 +55,7 @@
 - /css/style.css – Main Stylesheet  
 - /js/script.js – Core JS Logic  
 
+
+[App Screenshot]-(<img width="1903" height="883" alt="Screenshot 2025-07-27 010646" src="https://github.com/user-attachments/assets/15aefebf-16d7-4d4f-9500-f87dd8106149" />
+)
 ---
